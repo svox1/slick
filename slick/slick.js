@@ -71,6 +71,7 @@
                 slide: 'div',
                 slidesToShow: 1,
                 slidesToScroll: 1,
+                slideWidth: null,
                 speed: 300,
                 swipe: true,
                 touchMove: true,
@@ -1120,7 +1121,11 @@
 
 
         if(_.options.vertical === false) {
-            _.slideWidth = Math.ceil(_.listWidth / _.options.slidesToShow);
+            if(_.options.slideWidth != null) {
+              _.slideWidth = _.options.slideWidth;
+            } else {
+              _.slideWidth = Math.ceil(_.listWidth / _.options.slidesToShow);
+            }
             _.$slideTrack.width(Math.ceil((_.slideWidth * _.$slideTrack.children('.slick-slide').length)));
         
         } else {
