@@ -84,6 +84,7 @@
         listHeight: null,
         loadIndex: 0,
         $nextArrow: null,
+        oldSlide: 0,
         $prevArrow: null,
         slideCount: null,
         slideWidth: null,
@@ -890,7 +891,9 @@
     var _ = this;
 
     if (_.options.onAfterChange !== null) {
-      _.options.onAfterChange.call(this, _, index);
+      if(_.currentSlide != _.oldSlide) {
+        _.options.onAfterChange.call(this, _, index);
+      }
     }
 
     _.animating = false;
@@ -943,6 +946,7 @@
     _.slideCount = _.$slides.length;
 
     if (_.currentSlide >= _.slideCount && _.currentSlide !== 0) {
+      _.oldSlide = _.currentSlide;
       _.currentSlide = _.currentSlide - _.options.slidesToScroll;
     }
 
@@ -1292,6 +1296,7 @@
       _.options.onBeforeChange.call(this, _, _.currentSlide, animSlide);
     }
 
+    _.oldSlide = _.currentSlide;
     _.currentSlide = animSlide;
 
     _.setSlideClasses(_.currentSlide);
